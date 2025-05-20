@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist", // Output directory for compiled JS files
+    "rootDir": "./src", // Directory containing the source TS files
+    "target": "ESNext", // ECMAScript target version for compiled JS
+    "module": "CommonJS", // Module system (Node.js uses CommonJS)
+    "declaration": true, // Emit `.d.ts` files (optional)
+    "noEmit": false,
+    "strict": true, // Enable strict type-checking
+    "esModuleInterop": true, // Compatibility with CommonJS/ES6 modules
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": ["src/**/*", "scripts"],
+  "exclude": ["node_modules", "test", "dist", "**/*.spec.ts"]
+  
+  }
