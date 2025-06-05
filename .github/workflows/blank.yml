@@ -37,7 +37,20 @@ jobs:
           cat ~/.npmrc
           npm whoami || echo "❌ npm whoami failed"
           npm config list
-  
+
+      - name: Show npm debug log on failure
+        if: failure()
+        run: |
+          echo "📄 Displaying npm debug log (if exists)..."
+          cat /home/runner/.npm/_logs/*.log || echo "No log found"
+
+      - name: Debug npm config
+        run: |
+          echo "🛠 Showing .npmrc"
+          cat ~/.npmrc || echo "No .npmrc"
+          echo "🔍 npm config ls"
+          npm config ls
+          
       - name: Install dependencies
         run: npm ci
 
