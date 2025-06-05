@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Inject, OnModuleInit, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  OnModuleInit,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBody, ApiParam, ApiTags } from '@nestjs/swagger';
 import { CreateUserCommand } from '../../application/commands/create-user.command';
@@ -10,18 +18,16 @@ import { CreateUserDto } from '../dtos/create-user.dto';
 export class UserController implements OnModuleInit {
   constructor(
     @Inject(CommandBus) private readonly commandBus: CommandBus,
-    @Inject(QueryBus)private readonly queryBus: QueryBus,
+    @Inject(QueryBus) private readonly queryBus: QueryBus
   ) {}
-  onModuleInit() {
-    
-  }
+  onModuleInit() {}
   @Post()
-  @ApiBody({ type: ()=>  CreateUserDto })
+  @ApiBody({ type: () => CreateUserDto })
   async createUser(@Body() body: CreateUserDto) {
     const createUserCommand = new CreateUserCommand();
-    createUserCommand.email=body.email;
+    createUserCommand.email = body.email;
     createUserCommand.name = body.name;
-    createUserCommand.password = body.password
+    createUserCommand.password = body.password;
     return this.commandBus.execute(createUserCommand);
   }
 

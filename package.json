@@ -9,8 +9,10 @@
     "start:debug": "nest start --debug --watch",
     "clean": "rimraf dist",
     "clean:js": "shx rm -rf src/*.js src/**/*.js src/**/*.js.map *.js *.d.ts",
-    "build": "npm run clean && npm run clean:js && tsc",
+    "build": "nest build",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
     "format": "prettier --write ."
   },
   "keywords": [],
@@ -39,13 +41,35 @@
     "typeorm": "^0.3.20",
     "uuid": "^11.0.4"
   },
- 
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/luxon": "^3.4.2",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^22.10.10",
+    "jest": "^29.7.0",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
-    "shx": "^0.4.0"
+    "shx": "^0.4.0",
+    "ts-jest": "^29.3.4"
+  },
+  "jest": {
+    "testRegex": ".*\\.spec\\.ts$",
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "./coverage",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ]
   }
 }
