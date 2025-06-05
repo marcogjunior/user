@@ -29,6 +29,9 @@ jobs:
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org/'
+
+      - name: echo token
+        run: echo "${{ secrets.NODE_AUTH_TOKEN }}"
           
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN }}" > ~/.npmrc
