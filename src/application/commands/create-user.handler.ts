@@ -7,14 +7,20 @@ import { UserRepositoryImpl } from '../../infrastructure/repositories/user.repos
 import { CreateUserCommand } from './create-user.command';
 
 @CommandHandler(CreateUserCommand)
-export class CreateUserHandler implements ICommandHandler<CreateUserCommand,User>  {
-  constructor(@Inject(UserRepositoryImpl)private readonly userRepo: UserRepository) {}
+export class CreateUserHandler
+  implements ICommandHandler<CreateUserCommand, User>
+{
+  constructor(
+    @Inject(UserRepositoryImpl) private readonly userRepo: UserRepository
+  ) {}
 
   async execute(command: CreateUserCommand): Promise<User> {
     let user = await this.userRepo.findByEmail(command.email);
-    if (!user) 
-      user = await this.userRepo.create(new User("",command.name,command.email,command.password));
-    
+    if (!user)
+      user = await this.userRepo.create(
+        new User('', command.name, command.email, command.password)
+      );
+
     console.log('user created successfully', user);
     return user;
   }

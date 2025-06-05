@@ -4,14 +4,13 @@ import { AppModule } from './application/application.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
- 
+
   const config = new DocumentBuilder()
     .setTitle('User API')
     .setDescription('API to register users and authenticate')
     .setVersion('1.0')
     .build();
 
-    
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
