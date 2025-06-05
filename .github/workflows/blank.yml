@@ -30,7 +30,7 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org/'
           always-auth: true
-          token: ${{ secrets.NPM_TOKEN }}
+          token: ${{ secrets.NODE_AUTH_TOKEN  }}
    
       - name: Install dependencies
         run: npm ci
