@@ -1,0 +1,19 @@
+name: Production Pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  
+   ci:
+    uses: ./.github/workflows/ci.yml
+    with:
+      environment: prd
+   deploy:
+    needs: ci
+    runs-on: ubuntu-latest
+    environment:
+      name: prd
+    steps:
+      - run: echo "Deploying to Production..."
