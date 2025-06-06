@@ -1,0 +1,19 @@
+name: Install dependencies
+description: Setup Node and install dependencies with NPM auth
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "18"
+        registry-url: "https://registry.npmjs.org" # Or your private registry
+
+    - name: Authenticate with NPM
+      shell: bash
+      run: |
+         echo "//registry.npmjs.org/:_authToken=${{ secrets.NODE_AUTH_TOKEN }}" > ~/.npmrc
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
