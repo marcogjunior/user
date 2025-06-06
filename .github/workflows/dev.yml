@@ -5,17 +5,15 @@ on:
     branches: [ dev ]
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
+   build-and-test:
+    uses: ./.github/workflows/build-and-test.yml
     with:
-      environment: dev
-  test:
-    uses: ./.github/workflows/test.yml
-    with:
-      environment: dev
-  deploy:
+      environment: stage
+   deploy:
+    needs: build-and-test
     runs-on: ubuntu-latest
     environment:
-      name: dev
+      name: prd
     steps:
-      - run: echo "Deploying to DEV..."
+      - run: echo "Deploying to Development..."
+  
