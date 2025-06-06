@@ -6,7 +6,7 @@ name: Build and test user api
 on:
   workflow_call:
     inputs:
-      env:
+      environment:
         description: app environment
         required: true
         type: string
