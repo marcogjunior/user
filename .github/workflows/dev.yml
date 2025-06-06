@@ -5,12 +5,12 @@ on:
     branches: [ dev ]
 
 jobs:
-   build-and-test:
+   ci:
     uses: ./.github/workflows/ci.yml
     with:
       environment: stage
    deploy:
-    needs: build-and-test
+    needs: ci
     runs-on: ubuntu-latest
     environment:
       name: prd
