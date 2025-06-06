@@ -28,7 +28,7 @@ jobs:
 
       # build app
       - name: Build app
-        run: n'pm run build -- --env=${{ inputs.environment }}
+        run: npm run build -- --env=${{ inputs.environment }}
 
   test:
     needs: build
