@@ -25,6 +25,8 @@ jobs:
       
       # install all depedencies from setup-app
       - uses: ./.github/actions/setup-app
+        with:
+          node-auth-token: ${{ secrets.NODE_AUTH_TOKEN }}
 
       # build app
       - name: Build app
