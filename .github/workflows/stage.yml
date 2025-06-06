@@ -5,7 +5,7 @@ on:
     branches: [ stage ]
 
 jobs:
-  build:
+  build-and-test:
     uses: ./.github/workflows/ci.yml
     with:
       environment: stage
