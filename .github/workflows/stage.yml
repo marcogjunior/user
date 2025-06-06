@@ -5,16 +5,12 @@ on:
     branches: [ stage ]
 
 jobs:
-  build:
-    uses: ./.github/workflows/build.yml
+  build-and-test:
+    uses: ./.github/workflows/build-and-test.yml
     with:
       environment: stage
-  test:
-    uses: ./.github/workflows/test.yml
-    with:
-      environment: stage
-      
   deploy:
+    needs: build-and-test
     runs-on: ubuntu-latest
     environment:
       name: stage
