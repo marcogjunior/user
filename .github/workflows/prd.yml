@@ -5,6 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
+  
    build-and-test:
     uses: ./.github/workflows/ci.yml
     with:
