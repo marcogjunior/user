@@ -5,6 +5,7 @@ on:
     branches: [ dev ]
 
 jobs:
+  
    ci:
     name: Build and run test in Development
     uses: ./.github/workflows/ci.yml
@@ -14,7 +15,11 @@ jobs:
       name: Build and push image
       needs: ci
       uses: ./.github/workflows/docker-build-push.yml
+      
       with:
         branch: main
         image_name: https://hub.docker.com/repositories/marcogjunior83
         environment: development
+      secrets:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
