@@ -9,10 +9,10 @@ jobs:
     uses: ./.github/workflows/ci.yml
     with:
       environment: dev
-   deploy:
-    needs: build-and-test
-    runs-on: ubuntu-latest
-  
-    steps:
-      - run: echo "Deploying to Development..."
-  
+   update-docker-image:
+      needs: build-and-test
+      uses: ./.github/workflows/docker-build-push.yml
+      with:
+        branch: main
+        image_name: https://hub.docker.com/repositories/marcogjunior83
+        environment: development
