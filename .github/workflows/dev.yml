@@ -5,16 +5,14 @@ on:
     branches: [ dev ]
 
 jobs:
-   ci:
-    name: ""
+   build-and-test:
     uses: ./.github/workflows/ci.yml
     with:
-      environment: stage
+      environment: dev
    deploy:
-    needs: ci
+    needs: build-and-test
     runs-on: ubuntu-latest
-    environment:
-      name: prd
+  
     steps:
       - run: echo "Deploying to Development..."
   
