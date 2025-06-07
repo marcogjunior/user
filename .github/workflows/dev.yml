@@ -5,12 +5,14 @@ on:
     branches: [ dev ]
 
 jobs:
-   build-and-test:
+   ci:
+    name: Build and run test in Development
     uses: ./.github/workflows/ci.yml
     with:
       environment: dev
-   update-docker-image:
-      needs: build-and-test
+   docker:
+      name: Build and push image
+      needs: ci
       uses: ./.github/workflows/docker-build-push.yml
       with:
         branch: main
