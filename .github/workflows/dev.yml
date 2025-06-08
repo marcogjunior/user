@@ -1,20 +1,24 @@
 name: Dev Pipeline
 
 on:
-  push:
+  pull_request:
     branches: [ dev ]
 
 jobs:
+  
    ci:
-    name: ""
+    name: Build and run test in Development
     uses: ./.github/workflows/ci.yml
     with:
-      environment: stage
-   deploy:
-    needs: ci
-    runs-on: ubuntu-latest
-    environment:
-      name: prd
-    steps:
-      - run: echo "Deploying to Development..."
-  
+      environment: dev
+   docker:
+      name: Build and push image
+      needs: ci
+      uses: ./.github/workflows/docker-build-push.yml
+      
+      with:
+        tag_name: ${{ github.head_ref }}-${{ github.base_ref }}
+        image_name: marcogjunior83/user-api
+      secrets:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}  
