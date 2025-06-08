@@ -17,7 +17,7 @@ jobs:
       uses: ./.github/workflows/docker-build-push.yml
       
       with:
-        branch: ${{ github.head_ref }}
+        branch: ${{ github.ref_name }} 
         image_name: marcogjunior83/user-api
         environment: dev
       secrets:
