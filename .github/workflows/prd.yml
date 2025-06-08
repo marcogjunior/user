@@ -20,7 +20,7 @@ jobs:
       uses: ./.github/workflows/docker-build-push.yml
       
       with:
-        tag_name: ${{ github.head_ref }}-${{ github.base_ref }}
+        tag_name: ${{ github.head_ref }}
         image_name: marcogjunior83/user-api
         environment: prd
       secrets:
