@@ -18,7 +18,7 @@ jobs:
       
       with:
         branch: main
-        image_name: https://hub.docker.com/repositories/marcogjunior83
+        image_name: user-api
         environment: development
       secrets:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
