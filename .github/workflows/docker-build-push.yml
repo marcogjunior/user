@@ -3,16 +3,11 @@ name: Build and Push Docker Image
 on:
   workflow_call:
     inputs:
-      tag_name:
-        required: true
-        type: string
+     
       image_name:
         required: true
         type: string
-      environment:
-        default: dev
-        required: true
-        type: string
+     
      
     secrets:
       DOCKER_USERNAME:
@@ -55,12 +50,7 @@ jobs:
 
           # Short SHA
           SHORT_SHA="${GITHUB_SHA::7}"
-
-        
-          # Env
-          ENVIRONMENT=${{ inputs.environment}}
-
-          echo "tag=${BRANCH_SAFE}-${ENVIRONMENT}-${SHORT_SHA}" >> $GITHUB_OUTPUT
+          echo "tag=${BRANCH_SAFE}-${SHORT_SHA}" >> $GITHUB_OUTPUT
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
