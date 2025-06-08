@@ -47,12 +47,11 @@ jobs:
       - name: Set vars
         id: vars
         run: |
-          echo "branch=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
           echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
       - name: Debug vars
         run: |
-          echo "Branch: ${{ steps.vars.outputs.branch }}"
+          echo "Branch: ${{ inputs.branch }}"
           echo "SHA: ${{ steps.vars.outputs.short_sha }}"
 
       - name: Build and Push Image
@@ -61,6 +60,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ inputs.image_name }}:${{ steps.vars.outputs.branch || 'dev' }}
-            ${{ inputs.image_name }}:${{ steps.vars.outputs.short_sha || 'latest' }}
-            ${{ inputs.image_name }}:latest
+            ${{ inputs.image_name }}:${{ inputs.branch || inputs.environment }}
+            
