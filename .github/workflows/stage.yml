@@ -10,9 +10,15 @@ jobs:
     uses: ./.github/workflows/ci.yml
     with:
       environment: stage
-  deploy:
-    needs: ci
-    runs-on: ubuntu-latest
+  docker:
+      name: Build and push image
+      needs: ci
+      uses: ./.github/workflows/docker-build-push.yml
+      
+      with:
+        tag_name: ${{ github.head_ref }}-${{ github.base_ref }}
+        image_name: marcogjunior83/user-api
+      secrets:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}  
    
-    steps:
-      - run: echo "Deploying to Stage..."

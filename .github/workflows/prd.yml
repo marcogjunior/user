@@ -6,14 +6,23 @@ on:
 
 jobs:
   
+  #check out source build and run all tests
    ci:
     name: Build and run test in Production
     uses: ./.github/workflows/ci.yml
     with:
       environment: prd
-   deploy:
-    needs: ci
-    runs-on: ubuntu-latest
-  
-    steps:
-      - run: echo "Deploying to Production..."
+
+  # run docker file and create a new image and push to doccker hub
+   docker:
+      name: Build and push image
+      needs: ci
+      uses: ./.github/workflows/docker-build-push.yml
+      
+      with:
+        tag_name: ${{ github.head_ref }}-${{ github.base_ref }}
+        image_name: marcogjunior83/user-api
+      secrets:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}  
+    
