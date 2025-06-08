@@ -60,5 +60,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ inputs.image_name }}:${{ inputs.branch || inputs.environment }}
+            ${{ inputs.image_name }}:${{ inputs.branch}}-${{inputs.environment }}
             
