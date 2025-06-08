@@ -44,16 +44,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Set vars
-        id: vars
-        run: |
-          echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
-
-      - name: Debug vars
-        run: |
-          echo "Branch: ${{ inputs.branch }}"
-          echo "SHA: ${{ steps.vars.outputs.short_sha }}"
-
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
