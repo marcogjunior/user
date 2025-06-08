@@ -9,6 +9,10 @@ on:
       image_name:
         required: true
         type: string
+      environment:
+        default: dev
+        required: true
+        type: string
      
     secrets:
       DOCKER_USERNAME:
@@ -42,11 +46,26 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+      - name: Generate Docker Tag
+        id: tag
+        run: |
+          # Sanitize branch name
+          BRANCH="${{ github.head_ref || github.ref_name }}"
+          BRANCH_SAFE=$(echo $BRANCH | sed 's|/|-|g')
+
+          # Short SHA
+          SHORT_SHA="${GITHUB_SHA::7}"
+
+        
+          # Env
+          ENVIRONMENT=${{ inputs.environment}}
+
+          echo "tag=${BRANCH_SAFE}-${ENVIRONMENT}-${SHORT_SHA}" >> $GITHUB_OUTPUT
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ inputs.image_name }}:${{inputs.tag_name}}
+            ${{ inputs.image_name }}:${{ steps.tag.outputs.tag }}
             
