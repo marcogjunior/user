@@ -18,8 +18,8 @@ jobs:
       
       with:
         branch: main
-        image_name: user-api
+        image_name: marcogjunior83/user-api
         environment: development
       secrets:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}  
