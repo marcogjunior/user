@@ -44,18 +44,23 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Define Tags
+      - name: Set vars
         id: vars
         run: |
-          echo "SHORT_SHA=${GITHUB_SHA::8}" >> $GITHUB_ENV
-          echo "BRANCH=${{ inputs.branch }}" >> $GITHUB_ENV
+          echo "branch=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+          echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
 
+      - name: Debug vars
+        run: |
+          echo "Branch: ${{ steps.vars.outputs.branch }}"
+          echo "SHA: ${{ steps.vars.outputs.short_sha }}"
+          
       - name: Build and Push Image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ${{ inputs.image_name }}:${{ steps.vars.outputs.branch }}
-            ${{ inputs.image_name }}:${{ steps.vars.outputs.short_sha }}
+            ${{ inputs.image_name }}:${{ steps.vars.outputs.branch || 'dev' }}
+            ${{ inputs.image_name }}:${{ steps.vars.outputs.short_sha || 'latest' }}
             ${{ inputs.image_name }}:latest
